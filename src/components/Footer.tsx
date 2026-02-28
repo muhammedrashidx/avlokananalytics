@@ -1,0 +1,116 @@
+import Link from "next/link";
+import { Linkedin, Send, Mail } from "lucide-react";
+
+const footerColumns = [
+  {
+    header: "PRODUCTS",
+    links: [
+      { label: "Market Signal Intelligence", href: "#" },
+      { label: "Decision Dashboards", href: "#" },
+      { label: "Climate Risk Module", href: "#" },
+      { label: "Enterprise Deployment", href: "#" },
+    ],
+  },
+  {
+    header: "PROJECTS",
+    links: [
+      { label: "Spatial Sentiment Analysis", href: "#" },
+      { label: "SAR Based Inundation Mapping", href: "#" },
+      { label: "Landuse Impacts-Change Detection", href: "#" },
+      { label: "Vulnerability Analysis", href: "#" },
+      { label: "Network Analysis", href: "#" },
+      { label: "Food Emotion Analysis", href: "#" },
+    ],
+  },
+  {
+    header: "KNOWLEDGE PARTNERS",
+    links: [
+      { label: "IIT Bombay", href: "#" },
+      { label: "Centre for Climate Studies", href: "#" },
+      { label: "HDFC", href: "#" },
+    ],
+  },
+  {
+    header: "COMPANY",
+    links: [
+      { label: "Product", href: "#" },
+      { label: "Projects", href: "#" },
+    ],
+  },
+];
+
+const Footer = () => {
+  return (
+    <footer id="contact" className="relative bg-[hsl(0,0%,5%)] border-t border-white/10 overflow-hidden">
+      {/* Large background company name watermark */}
+      <div
+        className="absolute bottom-0 left-0 px-6 select-none pointer-events-none font-orbitron text-[clamp(5rem,16vw,12rem)] font-bold tracking-tighter text-white/[0.05] leading-none"
+        aria-hidden
+      >
+        AVLOKAN ANALYTICS
+      </div>
+
+      <div className="relative max-w-7xl mx-auto px-6 py-16">
+        {/* Navigation columns */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+          {footerColumns.map((col) => (
+            <div key={col.header}>
+              <h4 className="relative text-xs font-mono uppercase tracking-widest text-white/60 mb-4 pb-2 w-fit">
+                <span className="relative z-10">{col.header}</span>
+                <span
+                  className="absolute bottom-0 left-0 right-0 h-px bg-white/20"
+                  style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 0 100%)" }}
+                />
+              </h4>
+              <ul className="space-y-3">
+                {col.links.map((link) => (
+                  <li key={link.label}>
+                    <Link
+                      href={link.href}
+                      className="text-sm text-white/70 hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* Bottom row */}
+        <div className="mt-16 pt-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+          <div className="flex flex-col gap-2">
+            <p className="text-xs text-white/50">© 2026 Avlokan Analytics Inc.</p>
+            <p className="text-xs text-white/50">All rights reserved.</p>
+          </div>
+          <div className="flex items-center gap-6">
+            <a
+              href="#"
+              className="text-white/60 hover:text-white transition-colors"
+              aria-label="LinkedIn"
+            >
+              <Linkedin className="h-5 w-5" />
+            </a>
+            <a
+              href="#"
+              className="text-white/60 hover:text-white transition-colors"
+              aria-label="X"
+            >
+              <Send className="h-5 w-5" />
+            </a>
+            <a
+              href="#"
+              className="text-white/60 hover:text-white transition-colors"
+              aria-label="Contact"
+            >
+              <Mail className="h-5 w-5" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;
