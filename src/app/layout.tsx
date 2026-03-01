@@ -26,7 +26,7 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   title: "Avlokan Analytics",
-  description: "Energy infrastructure and analytics for the modern grid.",
+  description: "Climate‑Intelligent Decision Systems for Resilient Enterprises",
 };
 
 export default function RootLayout({

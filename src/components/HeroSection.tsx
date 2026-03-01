@@ -6,7 +6,7 @@ const HeroSection = () => {
   return (
     <section id="home" className="relative min-h-[90vh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
-        <img src={heroBg.src ?? (heroBg as unknown as string)} alt="Energy infrastructure" className="w-full h-full object-cover" />
+        <img src={heroBg.src ?? (heroBg as unknown as string)} alt="Climate‑Intelligent Decision Systems" className="w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
       </div>
 
