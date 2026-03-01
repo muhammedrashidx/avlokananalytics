@@ -11,7 +11,7 @@ const PARTNERS: { slug: string; ext?: string }[] = [
 const KnowledgePartnersSection = () => {
   return (
     <section id="knowledge-partners" className="overflow-hidden bg-white">
-      <div className="py-24 px-6 max-w-7xl mx-auto">
+      <div className="py-24 section-px max-w-7xl mx-auto">
         {/* Same heading style as Products & Services */}
         <motion.div
           initial={{ opacity: 0 }}

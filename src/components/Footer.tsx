@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Linkedin, Send, Mail } from "lucide-react";
+import { Linkedin, Send, Mail, Phone, MapPin } from "lucide-react";
 
 const footerColumns = [
   {
@@ -44,15 +44,15 @@ const Footer = () => {
     <footer id="contact" className="relative bg-[hsl(0,0%,5%)] border-t border-white/10 overflow-hidden">
       {/* Large background company name watermark */}
       <div
-        className="absolute bottom-0 left-0 px-6 select-none pointer-events-none font-orbitron text-[clamp(5rem,16vw,12rem)] font-bold tracking-tighter text-white/[0.05] leading-none"
+        className="absolute bottom-0 left-0 section-px select-none pointer-events-none font-orbitron text-[clamp(5rem,16vw,12rem)] font-bold tracking-tighter text-white/[0.05] leading-none"
         aria-hidden
       >
         AVLOKAN ANALYTICS
       </div>
 
-      <div className="relative max-w-7xl mx-auto px-6 py-16">
-        {/* Navigation columns */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+      <div className="relative max-w-7xl mx-auto section-px py-16">
+        {/* Navigation columns + Contact */}
+        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 md:gap-12">
           {footerColumns.map((col) => (
             <div key={col.header}>
               <h4 className="relative text-xs font-mono uppercase tracking-widest text-white/60 mb-4 pb-2 w-fit">
@@ -76,6 +76,42 @@ const Footer = () => {
               </ul>
             </div>
           ))}
+          {/* Contact details */}
+          <div>
+            <h4 className="relative text-xs font-mono uppercase tracking-widest text-white/60 mb-4 pb-2 w-fit">
+              <span className="relative z-10">CONTACT</span>
+              <span
+                className="absolute bottom-0 left-0 right-0 h-px bg-white/20"
+                style={{ clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 100%, 0 100%)" }}
+              />
+            </h4>
+            <ul className="space-y-3 text-sm text-white/70">
+              <li>
+                <a
+                  href="mailto:aunavalkar@gmail.com"
+                  className="flex items-center gap-2 hover:text-white transition-colors"
+                >
+                  <Mail className="h-4 w-4 flex-shrink-0 text-white/60" />
+                  aunavalkar@gmail.com
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:+918828468392"
+                  className="flex items-center gap-2 hover:text-white transition-colors"
+                >
+                  <Phone className="h-4 w-4 flex-shrink-0 text-white/60" />
+                  +91 8828468392
+                </a>
+              </li>
+              <li>
+                <span className="flex items-center gap-2">
+                  <MapPin className="h-4 w-4 flex-shrink-0 text-white/60" />
+                  Mumbai, India
+                </span>
+              </li>
+            </ul>
+          </div>
         </div>
 
         {/* Bottom row */}
@@ -100,9 +136,9 @@ const Footer = () => {
               <Send className="h-5 w-5" />
             </a>
             <a
-              href="#"
+              href="mailto:aunavalkar@gmail.com"
               className="text-white/60 hover:text-white transition-colors"
-              aria-label="Contact"
+              aria-label="Email"
             >
               <Mail className="h-5 w-5" />
             </a>

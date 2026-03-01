@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Check, ChevronLeft, ChevronRight } from "lucide-react";
 import spatial_sentimentImg from "@/assets/Spatial_Sentiment_Analysis.jpg";
@@ -53,11 +53,22 @@ const products = [
   
 ];
 
-const SLIDES_TO_SHOW = 3;
+const SLIDES_DESKTOP = 3;
+const MOBILE_BREAKPOINT = 768;
 
 const InfrastructureSection = () => {
   const [slideIndex, setSlideIndex] = useState(0);
-  const maxIndex = Math.max(0, products.length - SLIDES_TO_SHOW);
+  const [slidesToShow, setSlidesToShow] = useState(1);
+
+  useEffect(() => {
+    const mq = window.matchMedia(`(min-width: ${MOBILE_BREAKPOINT}px)`);
+    const update = () => setSlidesToShow(mq.matches ? SLIDES_DESKTOP : 1);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
+
+  const maxIndex = Math.max(0, products.length - slidesToShow);
 
   const goPrev = () => setSlideIndex((i) => Math.max(0, i - 1));
   const goNext = () => setSlideIndex((i) => Math.min(maxIndex, i + 1));
@@ -66,7 +77,7 @@ const InfrastructureSection = () => {
     <section id="projects" className="overflow-hidden">
       {/* Top part: white background - use SAME wrapper as ServicesSection for exact alignment */}
       <div className="bg-white">
-        <div className="py-24 px-6 max-w-7xl mx-auto">
+        <div className="py-24 section-px max-w-7xl mx-auto">
           {/* Top content: heading left, features right */}
           <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start">
             {/* Left: Brand, heading, paragraph - identical container to Products & Services */}
@@ -119,9 +130,9 @@ const InfrastructureSection = () => {
                       initial={{ opacity: 0, x: 20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true }}
-                      className="flex items-start gap-3 text-[11px] font-medium text-neutral-600 uppercase tracking-wider leading-snug"
+                      className="flex items-center gap-3 text-[11px] font-medium text-neutral-600 uppercase tracking-wider leading-snug"
                     >
-                      <span className="flex-shrink-0 w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center mt-0.5">
+                      <span className="flex-shrink-0 w-5 h-5 rounded-full border-2 border-primary flex items-center justify-center">
                         <Check className="h-3 w-3 text-primary stroke-[2.5]" />
                       </span>
                       {feature}
@@ -134,14 +145,13 @@ const InfrastructureSection = () => {
         </div>
       </div>
 
-      {/* Bottom part: full-width image gallery; right stops at last slide, left goes back — no loop, no black gap */}
+      {/* Bottom part: full-width image gallery; mobile: 1 slide + taller height, desktop: 3 slides */}
       <div className="bg-neutral-950 relative">
-        <div className="overflow-hidden">
+        <div className="overflow-hidden min-h-[55vh] md:min-h-0">
           <motion.div
-            className="flex flex-nowrap"
-            style={{ width: `${(100 * products.length) / SLIDES_TO_SHOW}%` }}
+            className="flex flex-nowrap h-full"
+            style={{ width: `${(100 * products.length) / slidesToShow}%` }}
             animate={{
-              // Move by (slideIndex / totalItems) of track so last slide stops when last 3 items fill the view
               x: `-${(100 * slideIndex) / products.length}%`,
             }}
             transition={{ type: "tween", duration: 0.35, ease: "easeInOut" }}
@@ -149,14 +159,14 @@ const InfrastructureSection = () => {
             {products.map((product, i) => (
               <div
                 key={`${product.title}-${i}`}
-                className="flex-shrink-0 overflow-hidden"
+                className="flex-shrink-0 overflow-hidden h-full"
                 style={{ width: `${100 / products.length}%` }}
               >
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  className="group relative w-full overflow-hidden"
+                  className="group relative w-full h-full min-h-[55vh] md:min-h-0 overflow-hidden"
                   style={{ aspectRatio: "4/3" }}
                   whileHover={{ scaleX: 1.04, scaleY: 1 }}
                   transition={{ duration: 0.25, ease: "easeOut" }}
@@ -185,7 +195,7 @@ const InfrastructureSection = () => {
         </div>
 
         {/* Left / Right arrows */}
-        {products.length > SLIDES_TO_SHOW && (
+        {products.length > slidesToShow && (
           <>
             <button
               type="button"

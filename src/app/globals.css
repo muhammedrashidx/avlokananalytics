@@ -1,6 +1,9 @@
 @import "tailwindcss";
 
 :root {
+  /* Section content: proportional horizontal padding for small laptops → large screens */
+  --section-px: clamp(1.25rem, 5vw, 4rem);
+
   /* Design tokens (HSL like in the original giga app) */
   --background: 0 0% 4%;
   --foreground: 0 0% 96%;
@@ -145,5 +148,11 @@
   /* Products & Services section: angular top-right corner on cards */
   .services-card-clip {
     clip-path: polygon(0 0, calc(100% - 2rem) 0, 100% 2rem, 100% 100%, 0 100%);
+  }
+
+  /* Proportional horizontal padding for section content (small laptops + large screens) */
+  .section-px {
+    padding-left: var(--section-px);
+    padding-right: var(--section-px);
   }
 }

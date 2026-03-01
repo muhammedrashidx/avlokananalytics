@@ -19,7 +19,7 @@ const Navbar = () => {
 
   return (
     <nav className="sticky top-0 z-50 bg-white backdrop-blur-xl border-b border-zinc-200">
-      <div className="max-w-7xl mx-auto px-6 flex items-center justify-between h-20">
+      <div className="max-w-7xl mx-auto section-px flex items-center justify-between h-20">
         <a href="/" className="font-orbitron text-2xl font-bold tracking-tight text-zinc-900">
           AVLOKAN ANALYTICS
         </a>
@@ -62,7 +62,7 @@ const Navbar = () => {
       </div>
 
       {mobileOpen && (
-        <div className="lg:hidden bg-white border-b border-zinc-200 px-6 py-4 space-y-3">
+        <div className="lg:hidden bg-white border-b border-zinc-200 section-px py-4 space-y-3">
           {navItems.map((item) =>
             "scrollToTop" in item && item.scrollToTop ? (
               <button

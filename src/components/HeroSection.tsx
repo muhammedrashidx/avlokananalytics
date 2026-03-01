@@ -10,13 +10,13 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-t from-background via-background/70 to-background/30" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-6 pb-20 w-full">
+      <div className="relative z-10 max-w-7xl mx-auto section-px pb-20 w-full">
         <div className="grid lg:grid-cols-2 gap-12 items-end">
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.05] tracking-tight"
+            className="text-3xl md:text-4xl lg:text-5xl font-bold leading-snug tracking-tight"
           >
             Climate‑Intelligent Decision Systems for Resilient Enterprises
           </motion.h1>

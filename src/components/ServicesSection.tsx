@@ -48,7 +48,7 @@ const ServicesSection = () => {
           background: "linear-gradient(to bottom, #ffffff 0%, #ffffff 45%, #000000 45%, #000000 100%)",
         }}
       />
-      <div className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
+      <div className="relative z-10 py-24 section-px max-w-7xl mx-auto">
         {/* Title area on white */}
         <motion.div
           initial={{ opacity: 0 }}
