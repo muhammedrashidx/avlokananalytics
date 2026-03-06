@@ -1,37 +1,43 @@
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import marketsignaImgl from "@/assets/market-signal.jpg";
 import dashboardImg from "@/assets/dashboard.jpg";
 import climateriskImg from "@/assets/climaterisk.jpg";
 import enterpriseImg from "@/assets/enterprise.jpg";
+
 const services = [
   {
     title: "Market Signal Intelligence",
+    caption: "Unlock your business potential",
     description:
-      "NLP pipelines extracting sentiment, demand signals, and operational insights from unstructured data.",
+      "We collect and analyse information from news, social media, and reports to help you see changes in demand, customer sentiment, and market trends early. This helps you take faster and more confident business decisions.",
     link: "Learn more",
     image: marketsignaImgl,
     stats: [],
   },
   {
-    title: "Decision Dashboards",
+    title: "Climate Risk Assessment",
+    caption: "Spatially map hazard risk and impact on infrastructure systems",
     description:
-      "Workflow-integrated analytics with forecasting and scenario simulation.",
-    link: "Learn more",
-    image: dashboardImg,
-    stats: [],
-  },
-  {
-    title: "Climate Risk Module",
-    description:
-      "Hazard modelling, disruption simulation, and resilience benchmarking integrated into business workflows.",
+      "Hazard modelling, disruption simulation, risk assessment, and resilience benchmarking are integrated into business workflows and supply chain assessments. We aim to help businesses improve their operational efficiency.",
     link: "Learn more",
     image: climateriskImg,
     stats: [],
   },
   {
-    title: "Enterprise Deployment",
+    title: "Decision Dashboards",
+    caption: "Analytics, forecasts, and climatic risk info in one place",
     description:
-      "Custom PoCs, modular subscriptions, and long-term enterprise partnerships.",
+      "Easy-to-use dashboards that show sales trends, supply chain performance, and climate-related risks clearly. View forecasts, track operations, and plan better — all customised to your business needs. Ideal for food companies, supply chain businesses, and FMCG firms that want simple, clear, and practical insights.",
+    link: "Learn more",
+    image: dashboardImg,
+    stats: [],
+  },
+  {
+    title: "Proof of Concepts (PoCs)",
+    caption: "Innovation that drives business",
+    description:
+      "We collaborate with companies to build practical solutions that strengthen supply chains, reduce climate-related risks, and transform complex data into actionable insights.",
     link: "Learn more",
     image: enterpriseImg,
     stats: [],
@@ -39,17 +45,23 @@ const services = [
 ];
 
 const ServicesSection = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
+
+  const handleToggle = (index: number) => {
+    setOpenIndex((prev) => (prev === index ? null : index));
+  };
+
   return (
     <section id="products" className="relative overflow-hidden">
-      {/* Split background: white top ~45%, black bottom ~55% */}
       <div
         className="absolute inset-0"
         style={{
-          background: "linear-gradient(to bottom, #ffffff 0%, #ffffff 45%, #000000 45%, #000000 100%)",
+          background:
+            "linear-gradient(to bottom, #ffffff 0%, #ffffff 45%, #000000 45%, #000000 100%)",
         }}
       />
+
       <div className="relative z-10 py-24 section-px max-w-7xl mx-auto">
-        {/* Title area on white */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -81,8 +93,7 @@ const ServicesSection = () => {
           Products & Services
         </motion.h2>
 
-        {/* Cards on black */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-start">
           {services.map((service, i) => (
             <motion.div
               key={service.title}
@@ -90,31 +101,70 @@ const ServicesSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className="group services-card-clip bg-neutral-800 overflow-hidden"
+              className="group services-card-clip bg-neutral-800 overflow-hidden self-start"
             >
               <div className="aspect-[4/3] overflow-hidden">
                 <img
-                  src={(service.image as any).src ?? (service.image as unknown as string)}
+                  src={
+                    (service.image as any).src ??
+                    (service.image as unknown as string)
+                  }
                   alt={service.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 opacity-90"
                 />
               </div>
+
               <div className="p-6 space-y-3 bg-neutral-800">
-                <h3 className="text-lg font-semibold text-white">{service.title}</h3>
-                <p className="text-sm text-neutral-300 leading-relaxed">{service.description}</p>
-                {service.stats.length > 0 && (
-                  <div className="flex gap-4 pt-2">
-                    {service.stats.map((stat) => (
-                      <span key={stat} className="text-xs font-mono text-primary">
-                        {stat}
-                      </span>
-                    ))}
-                  </div>
+                <h3 className="text-lg font-semibold text-white">
+                  {service.title}
+                </h3>
+
+                {service.caption && (
+                  <p className="text-sm text-neutral-400 leading-relaxed italic">
+                    {service.caption}
+                  </p>
                 )}
-                <a href="#" className="inline-flex items-center gap-1 text-sm text-primary font-medium hover:underline pt-2">
-                  {service.link}
+
+                <AnimatePresence initial={false} mode="wait">
+                  {openIndex === i && (
+                    <motion.div
+                      key={`content-${i}`}
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.3, ease: "easeInOut" }}
+                      className="overflow-hidden"
+                    >
+                      <div className="space-y-3">
+                        <p className="text-sm text-neutral-300 leading-relaxed">
+                          {service.description}
+                        </p>
+
+                        {service.stats.length > 0 && (
+                          <div className="flex gap-4 pt-2">
+                            {service.stats.map((stat) => (
+                              <span
+                                key={stat}
+                                className="text-xs font-mono text-primary"
+                              >
+                                {stat}
+                              </span>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                <button
+                  type="button"
+                  onClick={() => handleToggle(i)}
+                  className="inline-flex items-center gap-1 text-sm text-primary font-medium hover:underline pt-2"
+                >
+                  {openIndex === i ? "Show less" : service.link}
                   <span className="inline-block">↗</span>
-                </a>
+                </button>
               </div>
             </motion.div>
           ))}
@@ -125,4 +175,3 @@ const ServicesSection = () => {
 };
 
 export default ServicesSection;
-

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useRequestPilotDialog } from "@/components/RequestPilotDialog";
 
 const navItems = [
   { label: "Home", scrollToTop: true },
@@ -16,6 +17,7 @@ const scrollToTop = () => {
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const { openDialog } = useRequestPilotDialog();
 
   return (
     <nav className="sticky top-0 z-50 bg-white backdrop-blur-xl border-b border-zinc-200">
@@ -51,6 +53,7 @@ const Navbar = () => {
           <Button
             size="sm"
             className="font-mono text-xs uppercase tracking-widest bg-primary hover:bg-primary/90 text-primary-foreground"
+            onClick={openDialog}
           >
             Request a Pilot
           </Button>
@@ -91,6 +94,10 @@ const Navbar = () => {
             <Button
               size="sm"
               className="font-mono text-xs uppercase tracking-widest bg-primary hover:bg-primary/90 text-primary-foreground w-full"
+              onClick={() => {
+                openDialog();
+                setMobileOpen(false);
+              }}
             >
               Request a Pilot
             </Button>

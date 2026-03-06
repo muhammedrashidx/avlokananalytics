@@ -88,6 +88,15 @@ const Footer = () => {
             <ul className="space-y-3 text-sm text-white/70">
               <li>
                 <a
+                  href="mailto:avlokananalyticsllp@gmail.com"
+                  className="flex items-center gap-2 hover:text-white transition-colors"
+                >
+                  <Mail className="h-4 w-4 flex-shrink-0 text-white/60" />
+                  avlokananalyticsllp@gmail.com
+                </a>
+              </li>
+              <li>
+                <a
                   href="mailto:aunavalkar@gmail.com"
                   className="flex items-center gap-2 hover:text-white transition-colors"
                 >
@@ -117,7 +126,7 @@ const Footer = () => {
         {/* Bottom row */}
         <div className="mt-16 pt-8 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
           <div className="flex flex-col gap-2">
-            <p className="text-xs text-white/50">© 2026 Avlokan Analytics Inc.</p>
+            <p className="text-xs text-white/50">© 2026 Avlokan Analytics LLP</p>
             <p className="text-xs text-white/50">All rights reserved.</p>
           </div>
           <div className="flex items-center gap-6">

@@ -1,8 +1,11 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import heroBg from "@/assets/hero-bg.jpg";
+import { useRequestPilotDialog } from "@/components/RequestPilotDialog";
 
 const HeroSection = () => {
+  const { openDialog } = useRequestPilotDialog();
+
   return (
     <section id="home" className="relative min-h-[90vh] flex items-center overflow-hidden">
       <div className="absolute inset-0">
@@ -36,7 +39,10 @@ const HeroSection = () => {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="flex flex-wrap gap-3"
             >
-              <Button className="font-mono text-xs uppercase tracking-widest bg-primary hover:bg-primary/90 text-primary-foreground">
+              <Button
+                className="font-mono text-xs uppercase tracking-widest bg-primary hover:bg-primary/90 text-primary-foreground"
+                onClick={openDialog}
+              >
                 Request a Pilot
               </Button>
             </motion.div>

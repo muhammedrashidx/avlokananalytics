@@ -6,6 +6,10 @@ const PARTNERS: { slug: string; ext?: string }[] = [
   { slug: "IITB" },
   { slug: "CCS_IITB" },
   { slug: "HDFC", ext: "webp" },
+  { slug: "Amazing", ext: "jpg" },
+  { slug: "Aurassure"},
+  { slug: "Weatherex" },
+  { slug: "Experiqs" },
 ];
 
 const KnowledgePartnersSection = () => {
