@@ -21,39 +21,63 @@ export const useRequestPilotDialog = () => {
 
 export const RequestPilotDialogProvider = ({ children }: { children: React.ReactNode }) => {
   const [open, setOpen] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [result, setResult] = useState("");
 
-  const openDialog = () => setOpen(true);
-  const closeDialog = () => setOpen(false);
+  const openDialog = () => {
+    setResult("");
+    setOpen(true);
+  };
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const closeDialog = () => {
+    setResult("");
+    setOpen(false);
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const form = event.currentTarget;
-    const formData = new FormData(form);
+    setResult("");
 
-    const name = (formData.get("name") as string | null) ?? "";
-    const businessType = (formData.get("businessType") as string | null) ?? "";
-    const collaboration = (formData.get("collaboration") as string | null) ?? "";
-    const contact = (formData.get("contact") as string | null) ?? "";
+    const accessKey = process.env.NEXT_PUBLIC_WEB3FORMS_ACCESS_KEY;
 
-    const subject = `Pilot request from ${name || "website"}`;
-    const bodyLines = [
-      `Name: ${name}`,
-      `Type of Business: ${businessType}`,
-      "",
-      "How would you like us to collaborate with you?",
-      collaboration,
-      "",
-      `Contact (Email / Phone Number): ${contact}`,
-    ];
+    if (!accessKey) {
+      setResult("Missing Web3Forms access key. Add it in .env.local first.");
+      return;
+    }
 
-    const mailto = `mailto:avlokananalyticsllp@gmail.com?subject=${encodeURIComponent(
-      subject,
-    )}&body=${encodeURIComponent(bodyLines.join("\n"))}`;
+    setSubmitting(true);
 
-    // Trigger email client
-    window.location.href = mailto;
-    closeDialog();
-    form.reset();
+    try {
+      const form = event.currentTarget;
+      const formData = new FormData(form);
+
+      formData.append("access_key", accessKey);
+      formData.append("subject", "New Pilot Request from Website");
+      formData.append("from_name", "Avlokan Analytics Website");
+
+      const response = await fetch("https://api.web3forms.com/submit", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await response.json();
+
+      if (data.success) {
+        setResult("Submitted successfully. We will reach out soon.");
+        form.reset();
+
+        setTimeout(() => {
+          closeDialog();
+        }, 1200);
+      } else {
+        setResult(data.message || "Something went wrong. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      setResult("Something went wrong. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -73,18 +97,21 @@ export const RequestPilotDialogProvider = ({ children }: { children: React.React
             aria-modal="true"
             aria-label="Request a Pilot / Collaborate with Us"
           >
-            <div className="relative px-5 py-4 border-b border-zinc-200 bg-gradient-to-b from-zinc-50 to-white">
+            <div className="relative px-5 py-4 pr-14 border-b border-zinc-200 bg-gradient-to-b from-zinc-50 to-white">
               <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-primary/80 via-primary to-primary/60" />
-              <h2 className="text-lg font-semibold tracking-normal text-zinc-800">
+
+              <h2 className="text-base sm:text-lg font-semibold tracking-normal text-zinc-800 leading-snug">
                 Request a Pilot / Collaborate with Us
               </h2>
+
               <p className="mt-1 text-xs text-zinc-500 leading-relaxed">
                 Share a few details and we’ll reach out.
               </p>
+
               <button
                 type="button"
                 onClick={closeDialog}
-                className="absolute right-3 top-3 h-9 w-9 grid place-items-center rounded-full text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 text-sm cursor-pointer"
+                className="absolute right-2 top-2 h-9 w-9 grid place-items-center rounded-full text-zinc-500 hover:text-zinc-900 hover:bg-zinc-100 text-sm cursor-pointer"
                 aria-label="Close"
               >
                 ✕
@@ -92,6 +119,16 @@ export const RequestPilotDialogProvider = ({ children }: { children: React.React
             </div>
 
             <form onSubmit={handleSubmit} className="px-5 py-5 space-y-4">
+              {/* Hidden bot field for spam protection */}
+              <input
+                type="checkbox"
+                name="botcheck"
+                className="hidden"
+                style={{ display: "none" }}
+                tabIndex={-1}
+                autoComplete="off"
+              />
+
               <div className="space-y-1.5">
                 <label htmlFor="name" className="text-xs font-medium text-zinc-700">
                   Name
@@ -148,19 +185,28 @@ export const RequestPilotDialogProvider = ({ children }: { children: React.React
                 />
               </div>
 
+              {result && (
+                <p className="text-sm text-zinc-600">
+                  {result}
+                </p>
+              )}
+
               <div className="flex justify-end gap-3 pt-2">
                 <button
                   type="button"
                   onClick={closeDialog}
-                  className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-900 cursor-pointer"
+                  disabled={submitting}
+                  className="text-xs font-mono uppercase tracking-[0.2em] text-zinc-500 hover:text-zinc-900 cursor-pointer disabled:opacity-50"
                 >
                   Cancel
                 </button>
+
                 <button
                   type="submit"
-                  className="rounded-xl bg-primary px-4 py-2.5 text-xs font-mono uppercase tracking-[0.2em] text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow cursor-pointer"
+                  disabled={submitting}
+                  className="rounded-xl bg-primary px-4 py-2.5 text-xs font-mono uppercase tracking-[0.2em] text-primary-foreground hover:bg-primary/90 shadow-sm hover:shadow cursor-pointer disabled:opacity-60"
                 >
-                  Submit
+                  {submitting ? "Submitting..." : "Submit"}
                 </button>
               </div>
             </form>
@@ -170,4 +216,3 @@ export const RequestPilotDialogProvider = ({ children }: { children: React.React
     </RequestPilotDialogContext.Provider>
   );
 };
-

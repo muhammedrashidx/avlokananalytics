@@ -163,7 +163,12 @@ const ServicesSection = () => {
                   className="inline-flex items-center gap-1 text-sm text-primary font-medium hover:underline pt-2"
                 >
                   {openIndex === i ? "Show less" : service.link}
-                  <span className="inline-block">↗</span>
+                  {/* Keep desktop look, avoid odd mobile glyph spacing */}
+                  {openIndex !== i && (
+                    <span className="hidden md:inline-block" aria-hidden>
+                      ↗
+                    </span>
+                  )}
                 </button>
               </div>
             </motion.div>
