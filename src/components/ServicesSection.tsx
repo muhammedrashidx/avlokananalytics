@@ -7,10 +7,10 @@ import enterpriseImg from "@/assets/enterprise.jpg";
 
 const services = [
   {
-    title: "Market Signal Intelligence",
-    caption: "Unlock your business potential",
+    title: "Market Insights",
+    caption: "Unlock your business\npotential",
     description:
-      "We collect and analyse information from news, social media, and reports to help you see changes in demand, customer sentiment, and market trends early. This helps you take faster and more confident business decisions.",
+      "Consumer sentiment is a key indicator of product absorption among clients, and its early identification can enhance sales.  We collect and analyse information from feedback data, news, social media, and reports to help you see changes in demand, customer sentiment, and market trends early. This helps you make faster, more confident business decisions.",
     link: "Learn more",
     image: marketsignaImgl,
     stats: [],
@@ -19,7 +19,7 @@ const services = [
     title: "Climate Risk Assessment",
     caption: "Spatially map hazard risk and impact on infrastructure systems",
     description:
-      "Hazard modelling, disruption simulation, risk assessment, and resilience benchmarking are integrated into business workflows and supply chain assessments. We aim to help businesses improve their operational efficiency.",
+      "Supply chains are exposed to climate risks, and their efficiency is affected by natural hazards. We thus integrate hazard modelling, disruption simulation, risk assessment, and resilience benchmarking into business workflows and supply chain management. We aim to help businesses improve their operational efficiency.",
     link: "Learn more",
     image: climateriskImg,
     stats: [],
@@ -28,14 +28,14 @@ const services = [
     title: "Decision Dashboards",
     caption: "Analytics, forecasts, and climatic risk info in one place",
     description:
-      "Easy-to-use dashboards that show sales trends, supply chain performance, and climate-related risks clearly. View forecasts, track operations, and plan better — all customised to your business needs. Ideal for food companies, supply chain businesses, and FMCG firms that want simple, clear, and practical insights.",
+      "We integrate analytics in dashboards that show sales trends, supply chain performance, and climate-related risks clearly. View forecasts, track operations, and plan better — all customised to your business needs. Ideal for food companies, supply chain businesses, and FMCG firms that want simple, clear, and practical insights.",
     link: "Learn more",
     image: dashboardImg,
     stats: [],
   },
   {
     title: "Proof of Concepts (PoCs)",
-    caption: "Innovation that drives business",
+    caption: "Innovation that drives \nbusiness",
     description:
       "We collaborate with companies to build practical solutions that strengthen supply chains, reduce climate-related risks, and transform complex data into actionable insights.",
     link: "Learn more",
@@ -120,7 +120,7 @@ const ServicesSection = () => {
                 </h3>
 
                 {service.caption && (
-                  <p className="text-sm text-neutral-400 leading-relaxed italic">
+                  <p className="text-sm text-neutral-400 leading-relaxed italic whitespace-pre-line">
                     {service.caption}
                   </p>
                 )}

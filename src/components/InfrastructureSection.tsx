@@ -1,8 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
-import { Check, ChevronLeft, ChevronRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Check, ChevronLeft, ChevronRight, X } from "lucide-react";
 import spatial_sentimentImg from "@/assets/Spatial_Sentiment_Analysis.jpg";
 import SARImg from "@/assets/SAR_based_inundation_mapping.png";
 import LanduseImg from "@/assets/LanduseImpacts_ChangeDetection.png";
@@ -18,36 +18,36 @@ const features = [
 
 const products = [
   {
-    title: "Spatial Sentiment Analysis",
+    title: "Sentiment analysis for hazard detection",
     description:
       "Geospatial NLP and sentiment mapping for supply chain and climate signals.",
     image: spatial_sentimentImg,
   },
   {
-    title: "SAR Based Inundation Mapping",
+    title: "Flood mapping using satellite data",
     description:
-      "SAR Based Inundation Mapping",
+      "Flood mapping using satellite data",
     image: SARImg,
   },
   {
-    title: "Landuse Impacts-Change Detection",
+    title: "Land use change detection",
     description:
-      "Landuse Impacts-Change Detection",
+      "Land use change detection",
     image: LanduseImg,
   },
   {
-    title: "Vulnerability Analysis",
-    description: "Vulnerability Analysis",
+    title: "Risk and vulnerability mapping",
+    description: "Risk and vulnerability mapping",
     image: vulnerabilityImg,
   },
   {
-    title: "Network Analysis",
+    title: "Network analysis for supply chain and transportation",
     description: "Network Analysis",
     image: networkanalysisImg,
   },
   {
-    title: "Food Emotion Analysis",
-    description: "Food Emotion Analysis",
+    title: "Food emotion & customer feedback analytics",
+    description: "Food emotion & customer feedback analytics",
     image: foodsentimentImg,
   }
   
@@ -59,6 +59,7 @@ const MOBILE_BREAKPOINT = 768;
 const InfrastructureSection = () => {
   const [slideIndex, setSlideIndex] = useState(0);
   const [slidesToShow, setSlidesToShow] = useState(1);
+  const [openModalIndex, setOpenModalIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const mq = window.matchMedia(`(min-width: ${MOBILE_BREAKPOINT}px)`);
@@ -145,79 +146,132 @@ const InfrastructureSection = () => {
         </div>
       </div>
 
-      {/* Bottom part: full-width image gallery; mobile: 1 slide + taller height, desktop: 3 slides */}
-      <div className="bg-neutral-950 relative">
-        <div className="overflow-hidden min-h-[55vh] md:min-h-0">
-          <motion.div
-            className="flex flex-nowrap h-full"
-            style={{ width: `${(100 * products.length) / slidesToShow}%` }}
-            animate={{
-              x: `-${(100 * slideIndex) / products.length}%`,
-            }}
-            transition={{ type: "tween", duration: 0.35, ease: "easeInOut" }}
-          >
-            {products.map((product, i) => (
-              <div
-                key={`${product.title}-${i}`}
-                className="flex-shrink-0 overflow-hidden h-full"
-                style={{ width: `${100 / products.length}%` }}
-              >
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  className="group relative w-full h-full min-h-[55vh] md:min-h-0 overflow-hidden"
-                  style={{ aspectRatio: "4/3" }}
-                  whileHover={{ scaleX: 1.04, scaleY: 1 }}
-                  transition={{ duration: 0.25, ease: "easeOut" }}
+      {/* Bottom part: modern image gallery with gaps and hover popup */}
+      <div className="bg-neutral-950 relative py-12 md:py-16">
+        <div className="max-w-7xl mx-auto section-px">
+          <div className="overflow-hidden min-h-[55vh] md:min-h-0 rounded-2xl">
+            <motion.div
+              className="flex flex-nowrap h-full"
+              style={{ width: `${(100 * products.length) / slidesToShow}%` }}
+              animate={{
+                x: `-${(100 * slideIndex) / products.length}%`,
+              }}
+              transition={{ type: "tween", duration: 0.35, ease: "easeInOut" }}
+            >
+              {products.map((product, i) => (
+                <div
+                  key={`${product.title}-${i}`}
+                  className="flex-shrink-0 h-full px-2 md:px-3"
+                  style={{ width: `${100 / products.length}%` }}
                 >
-                  <img
-                    src={(product.image as any).src ?? (product.image as unknown as string)}
-                    alt={product.title}
-                    className="absolute inset-0 w-full h-full object-cover"
-                  />
-                  <div
-                    className="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent"
-                    aria-hidden
-                  />
-                  <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-6">
-                    <h3 className="text-lg md:text-xl font-bold text-white mb-1.5">
+                  <motion.button
+                    type="button"
+                    initial={{ opacity: 0, y: 20 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true }}
+                    onClick={() => setOpenModalIndex(i)}
+                    className="group relative w-full h-full overflow-hidden rounded-2xl border border-white/10 bg-neutral-900 shadow-xl min-h-[55vh] md:min-h-[320px] text-left cursor-pointer"
+                    style={{ aspectRatio: "4/3" }}
+                  >
+                    <div className="absolute inset-0 flex items-center justify-center bg-neutral-800 p-2">
+                      <img
+                        src={(product.image as any).src ?? (product.image as unknown as string)}
+                        alt={product.title}
+                        className="max-w-full max-h-full w-auto h-auto object-contain"
+                      />
+                    </div>
+                    <span className="absolute bottom-3 left-3 right-3 text-xs font-medium text-white/95 drop-shadow-lg">
                       {product.title}
-                    </h3>
-                    <p className="text-xs md:text-sm text-white/90 leading-relaxed">
-                      {product.description}
-                    </p>
-                  </div>
-                </motion.div>
-              </div>
-            ))}
-          </motion.div>
-        </div>
+                    </span>
+                  </motion.button>
+                </div>
+              ))}
+            </motion.div>
+          </div>
 
-        {/* Left / Right arrows */}
-        {products.length > slidesToShow && (
-          <>
-            <button
-              type="button"
-              onClick={goPrev}
-              disabled={slideIndex === 0}
-              className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-primary hover:bg-primary/90 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-primary-foreground transition-colors"
-              aria-label="Previous projects"
-            >
-              <ChevronLeft className="w-6 h-6" />
-            </button>
-            <button
-              type="button"
-              onClick={goNext}
-              disabled={slideIndex >= maxIndex}
-              className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-primary hover:bg-primary/90 disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center text-primary-foreground transition-colors"
-              aria-label="Next projects"
-            >
-              <ChevronRight className="w-6 h-6" />
-            </button>
-          </>
-        )}
+          {/* Left / Right arrows */}
+          {products.length > slidesToShow && (
+            <div className="flex justify-center gap-4 mt-8">
+              <button
+                type="button"
+                onClick={goPrev}
+                disabled={slideIndex === 0}
+                className="w-12 h-12 rounded-full bg-white/10 hover:bg-primary border border-white/20 hover:border-primary text-white disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center cursor-pointer transition-colors"
+                aria-label="Previous projects"
+              >
+                <ChevronLeft className="w-6 h-6" />
+              </button>
+              <button
+                type="button"
+                onClick={goNext}
+                disabled={slideIndex >= maxIndex}
+                className="w-12 h-12 rounded-full bg-white/10 hover:bg-primary border border-white/20 hover:border-primary text-white disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center cursor-pointer transition-colors"
+                aria-label="Next projects"
+              >
+                <ChevronRight className="w-6 h-6" />
+              </button>
+            </div>
+          )}
+        </div>
       </div>
+
+      {/* Modal: click to open, close button + outside click to close */}
+      <AnimatePresence>
+        {openModalIndex !== null && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 cursor-pointer"
+            onClick={() => setOpenModalIndex(null)}
+            role="presentation"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: "tween", duration: 0.2 }}
+              className="relative w-full max-w-2xl max-h-[90vh] overflow-hidden rounded-2xl bg-white shadow-2xl cursor-auto flex flex-col"
+              onClick={(e) => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-label={products[openModalIndex]?.title}
+            >
+              {/* Image container - full image contained */}
+              <div className="flex-1 min-h-0 flex items-center justify-center bg-neutral-100 p-6">
+                <img
+                  src={
+                    (products[openModalIndex]?.image as any)?.src ??
+                    (products[openModalIndex]?.image as unknown as string)
+                  }
+                  alt={products[openModalIndex]?.title ?? ""}
+                  className="max-w-full max-h-[50vh] w-auto h-auto object-contain"
+                />
+              </div>
+
+              {/* Content: title + full description */}
+              <div className="p-6 border-t border-neutral-200 space-y-3">
+                <h3 className="text-xl font-bold text-neutral-900">
+                  {products[openModalIndex]?.title}
+                </h3>
+                <p className="text-sm text-neutral-600 leading-relaxed">
+                  {products[openModalIndex]?.description}
+                </p>
+              </div>
+
+              {/* Close button */}
+              <button
+                type="button"
+                onClick={() => setOpenModalIndex(null)}
+                className="absolute right-3 top-3 h-10 w-10 rounded-full bg-white/90 hover:bg-white border border-neutral-200 flex items-center justify-center text-neutral-600 hover:text-neutral-900 cursor-pointer transition-colors"
+                aria-label="Close"
+              >
+                <X className="h-5 w-5" />
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
