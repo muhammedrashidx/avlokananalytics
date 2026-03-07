@@ -20,34 +20,34 @@ const products = [
   {
     title: "Sentiment analysis for hazard detection",
     description:
-      "Geospatial NLP and sentiment mapping for supply chain and climate signals.",
+      "",
     image: spatial_sentimentImg,
   },
   {
     title: "Flood mapping using satellite data",
     description:
-      "Flood mapping using satellite data",
+      "",
     image: SARImg,
   },
   {
     title: "Land use change detection",
     description:
-      "Land use change detection",
+      "",
     image: LanduseImg,
   },
   {
     title: "Risk and vulnerability mapping",
-    description: "Risk and vulnerability mapping",
+    description: "",
     image: vulnerabilityImg,
   },
   {
     title: "Network analysis for supply chain and transportation",
-    description: "Network Analysis",
+    description: "",
     image: networkanalysisImg,
   },
   {
     title: "Food emotion & customer feedback analytics",
-    description: "Food emotion & customer feedback analytics",
+    description: "",
     image: foodsentimentImg,
   }
   
@@ -117,7 +117,7 @@ const InfrastructureSection = () => {
                 viewport={{ once: true }}
                 className="text-sm text-neutral-600 max-w-xl leading-relaxed"
               >
-                We develop climate-intelligent decision support systems that integrate advanced analytics, supply chain intelligence, and hazard risk modeling to build resilient enterprises and public systems.
+                We develop climate-intelligent decision support systems that integrate advanced analytics, supply chain intelligence, and hazard risk modeling to build resilient enterprises and public systems.<br/> The following are the projects we are currently involved with
               </motion.p>
             </div>
 
