@@ -117,7 +117,7 @@ const InfrastructureSection = () => {
                 viewport={{ once: true }}
                 className="text-sm text-neutral-600 max-w-xl leading-relaxed"
               >
-                We develop climate-intelligent decision support systems that integrate advanced analytics, supply chain intelligence, and hazard risk modeling to build resilient enterprises and public systems.<br/> The following are the projects we are currently involved with
+                We develop climate-intelligent decision support systems that integrate advanced analytics, supply chain intelligence, and hazard risk modeling to build resilient enterprises and public systems.<br/> <br/>The following are the projects we are currently involved with,
               </motion.p>
             </div>
 
