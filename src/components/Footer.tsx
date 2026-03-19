@@ -25,9 +25,10 @@ const footerColumns = [
   {
     header: "KNOWLEDGE PARTNERS",
     links: [
-      { label: "IIT Bombay", href: "#" },
-      { label: "Centre for Climate Studies", href: "#" },
-      { label: "HDFC", href: "#" },
+      { label: "Afoozo foods", href: "https://afoozo.com/" },
+      { label: "Aurassure Inc", href: "https://aurassure.com/" },
+      { label: "Experiqs", href: "https://experiqs.tech/" },
+      { label: "WeatherX", href: "https://weatherex.ai/" },
     ],
   },
   {
@@ -63,16 +64,30 @@ const Footer = () => {
                 />
               </h4>
               <ul className="space-y-3">
-                {col.links.map((link) => (
-                  <li key={link.label}>
-                    <Link
-                      href={link.href}
-                      className="text-sm text-white/70 hover:text-white transition-colors"
-                    >
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
+                {col.links.map((link) => {
+                  const isExternal = link.href.startsWith("http");
+                  return isExternal ? (
+                    <li key={link.label}>
+                      <a
+                        href={link.href}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-sm text-white/70 hover:text-white transition-colors"
+                      >
+                        {link.label}
+                      </a>
+                    </li>
+                  ) : (
+                    <li key={link.label}>
+                      <Link
+                        href={link.href}
+                        className="text-sm text-white/70 hover:text-white transition-colors"
+                      >
+                        {link.label}
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </div>
           ))}

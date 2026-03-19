@@ -2,15 +2,17 @@
 
 import { motion } from "framer-motion";
 
-const PARTNERS: { slug: string; ext?: string }[] = [
-
-  
+const PARTNERS: {
+  slug: string;
+  ext?: string;
+  url: string;
+}[] = [
   // NOTE: Filenames in /public/partners are case-sensitive on Cloudflare (Linux).
   // Keep `slug` matching the exact filename (without extension).
-  { slug: "amazing", ext: "jpg" },
-  { slug: "aurassure" },
-  { slug: "weatherex" },
-  { slug: "experiqs" },
+  { slug: "amazing", ext: "jpg", url: "https://afoozo.com/" },
+  { slug: "aurassure", url: "https://aurassure.com/" },
+  { slug: "experiqs", url: "https://experiqs.tech/" },
+  { slug: "weatherex", url: "https://weatherex.ai/" },
 ];
 
 const KnowledgePartnersSection = () => {
@@ -53,7 +55,9 @@ const KnowledgePartnersSection = () => {
           {PARTNERS.map((p, i) => (
             <motion.a
               key={p.slug}
-              href="#"
+              href={p.url}
+              target="_blank"
+              rel="noopener noreferrer"
               initial={{ opacity: 0, y: 12 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -62,7 +66,8 @@ const KnowledgePartnersSection = () => {
             >
               <img
                 src={`/partners/${p.slug}.${p.ext ?? "png"}`}
-                alt={p.slug.replace(/_/g, " ")}
+                alt=""
+                aria-hidden="true"
                 className="h-16 md:h-20 w-auto max-w-[180px] object-contain object-center"
               />
             </motion.a>
