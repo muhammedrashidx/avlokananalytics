@@ -18,36 +18,39 @@ const features = [
 
 const products = [
   {
-    title: "Sentiment analysis for hazard detection",
+    title: "Sentiment Analysis for Flood Detection",
     description:
-      "",
+      "We have developed NLP algorithms that can detect flooding locations through twitter feeds.",
     image: spatial_sentimentImg,
   },
   {
-    title: "Flood mapping using satellite data",
+    title: "Flood mapping and modelling",
     description:
-      "",
+      "We can develop high quality flood maps using HEC-RAS software and Satellite data.",
     image: SARImg,
   },
   {
     title: "Land use change detection",
     description:
-      "",
+      "We develop high-quality land use maps and detect the change in land cover arising from various infrastructure projects.",
     image: LanduseImg,
   },
   {
     title: "Risk and vulnerability mapping",
-    description: "",
+    description:
+      "We specialize in the assessment of risk from natural hazards and climatic extremities, particularly on urban infrastructure.",
     image: vulnerabilityImg,
   },
   {
-    title: "Network analysis for supply chain and transportation",
-    description: "",
+    title: "Network Analysis for supply chain and transportation.",
+    description:
+      "We are involved in developing techniques to measure the disruption in transportation and supply chain networks from hazards, and work towards resilience planning solutions.",
     image: networkanalysisImg,
   },
   {
     title: "Food emotion & customer feedback analytics",
-    description: "",
+    description:
+      "We enhance existing dashboards and ERP systems by integrating customer sentiment, climate, and feedback data to enable faster, more informed decision making.",
     image: foodsentimentImg,
   }
   
@@ -109,7 +112,7 @@ const InfrastructureSection = () => {
                 viewport={{ once: true }}
                 className="font-jetbrains-mono text-3xl md:text-4xl font-bold text-neutral-900 mb-4"
               >
-                Research Projects
+                Projects
               </motion.h2>
               <motion.p
                 initial={{ opacity: 0, y: 20 }}
@@ -117,7 +120,10 @@ const InfrastructureSection = () => {
                 viewport={{ once: true }}
                 className="text-sm text-neutral-600 max-w-xl leading-relaxed"
               >
-                We develop climate-intelligent decision support systems that integrate advanced analytics, supply chain intelligence, and hazard risk modeling to build resilient enterprises and public systems.<br/> <br/>The following are the projects we are currently involved with,
+                We develop climate-intelligent decision support systems that integrate advanced analytics, supply chain intelligence, and hazard risk modeling to build resilient enterprises and public systems.
+                <br />
+                <br />
+                Following is the synopsis of our projects/research.
               </motion.p>
             </div>
 
@@ -149,9 +155,9 @@ const InfrastructureSection = () => {
       {/* Bottom part: modern image gallery with gaps and hover popup */}
       <div className="bg-neutral-950 relative py-12 md:py-16">
         <div className="max-w-7xl mx-auto section-px">
-          <div className="overflow-hidden min-h-[55vh] md:min-h-0 rounded-2xl">
+          <div className="relative overflow-hidden min-h-[55vh] md:min-h-0 rounded-2xl">
             <motion.div
-              className="flex flex-nowrap h-full"
+              className="flex flex-nowrap h-full relative z-0"
               style={{ width: `${(100 * products.length) / slidesToShow}%` }}
               animate={{
                 x: `-${(100 * slideIndex) / products.length}%`,
@@ -175,7 +181,10 @@ const InfrastructureSection = () => {
                   >
                     <div className="absolute inset-0 flex items-center justify-center bg-neutral-800 p-2">
                       <img
-                        src={(product.image as any).src ?? (product.image as unknown as string)}
+                        src={
+                          (product.image as any).src ??
+                          (product.image as unknown as string)
+                        }
                         alt={product.title}
                         className="max-w-full max-h-full w-auto h-auto object-contain"
                       />
@@ -187,31 +196,31 @@ const InfrastructureSection = () => {
                 </div>
               ))}
             </motion.div>
-          </div>
 
-          {/* Left / Right arrows */}
-          {products.length > slidesToShow && (
-            <div className="flex justify-center gap-4 mt-8">
-              <button
-                type="button"
-                onClick={goPrev}
-                disabled={slideIndex === 0}
-                className="w-12 h-12 rounded-full bg-white/10 hover:bg-primary border border-white/20 hover:border-primary text-white disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center cursor-pointer transition-colors"
-                aria-label="Previous projects"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <button
-                type="button"
-                onClick={goNext}
-                disabled={slideIndex >= maxIndex}
-                className="w-12 h-12 rounded-full bg-white/10 hover:bg-primary border border-white/20 hover:border-primary text-white disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center cursor-pointer transition-colors"
-                aria-label="Next projects"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
-            </div>
-          )}
+            {/* Left / Right arrows (side-positioned) */}
+            {products.length > slidesToShow && (
+              <>
+                <button
+                  type="button"
+                  onClick={goPrev}
+                  disabled={slideIndex === 0}
+                  className="absolute left-0 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm hover:bg-primary border border-white/30 hover:border-primary text-white disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center cursor-pointer transition-colors"
+                  aria-label="Previous projects"
+                >
+                  <ChevronLeft className="w-6 h-6" />
+                </button>
+                <button
+                  type="button"
+                  onClick={goNext}
+                  disabled={slideIndex >= maxIndex}
+                  className="absolute right-0 top-1/2 -translate-y-1/2 z-50 w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm hover:bg-primary border border-white/30 hover:border-primary text-white disabled:opacity-30 disabled:pointer-events-none flex items-center justify-center cursor-pointer transition-colors"
+                  aria-label="Next projects"
+                >
+                  <ChevronRight className="w-6 h-6" />
+                </button>
+              </>
+            )}
+          </div>
         </div>
       </div>
 

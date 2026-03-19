@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Link from "next/link";
 import { Menu, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRequestPilotDialog } from "@/components/RequestPilotDialog";
@@ -22,9 +23,9 @@ const Navbar = () => {
   return (
     <nav className="sticky top-0 z-50 bg-white backdrop-blur-xl border-b border-zinc-200">
       <div className="max-w-7xl mx-auto section-px flex items-center justify-between h-20">
-        <a href="/" className="font-orbitron text-2xl font-bold tracking-tight text-zinc-900">
+        <Link href="/" className="font-orbitron text-2xl font-bold tracking-tight text-zinc-900">
           AVLOKAN ANALYTICS
-        </a>
+        </Link>
 
         <div className="hidden lg:flex items-center gap-2">
           {navItems.map((item) =>

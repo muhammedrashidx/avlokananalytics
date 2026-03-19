@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const PARTNERS: { slug: string; ext?: string }[] = [
 
-  { slug: "CCS_IITB" },
+  
   // NOTE: Filenames in /public/partners are case-sensitive on Cloudflare (Linux).
   // Keep `slug` matching the exact filename (without extension).
   { slug: "amazing", ext: "jpg" },
