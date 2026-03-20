@@ -146,21 +146,14 @@ const Footer = () => {
           </div>
           <div className="flex items-center gap-6">
             <a
-              href="#"
+              href="https://www.linkedin.com/in/aniket-navalkar-4805bb3a/?originalSubdomain=in"
               className="text-white/60 hover:text-white transition-colors"
               aria-label="LinkedIn"
             >
               <Linkedin className="h-5 w-5" />
             </a>
             <a
-              href="#"
-              className="text-white/60 hover:text-white transition-colors"
-              aria-label="X"
-            >
-              <Send className="h-5 w-5" />
-            </a>
-            <a
-              href="mailto:aunavalkar@gmail.com"
+              href="mailto:avlokananalyticsllp@gmail.com"
               className="text-white/60 hover:text-white transition-colors"
               aria-label="Email"
             >
